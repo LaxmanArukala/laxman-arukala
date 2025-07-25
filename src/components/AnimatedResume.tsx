@@ -189,14 +189,7 @@ const AnimatedResume: React.FC = () => {
       liveUrl: 'https://ar.immersionslabs.com',
       githubUrl: ''
     },
-    {
-      title: 'Social Media Dashboard',
-      description: 'Analytics dashboard for social media management with data visualization, scheduling posts, and performance tracking.',
-      technologies: ['React.js', 'D3.js', 'Node.js', 'Redis', 'Chart.js'],
-      image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800',
-      liveUrl: 'https://social-dashboard.com',
-      githubUrl: 'https://github.com/johndoe/social-dashboard'
-    }
+    
   ];
 
   const handleDownloadResume = () => {
@@ -226,13 +219,21 @@ const AnimatedResume: React.FC = () => {
             <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight">
               Arukala Laxman
             </h1>
-            <div className="text-2xl md:text-3xl text-blue-200 mb-8 h-12 flex items-center justify-center">
+            {/* <div className="text-2xl md:text-3xl text-blue-200 mb-8 h-12 flex items-center justify-center">
               <span className="mr-2">I'm a</span>
               <span className="text-yellow-300 font-semibold min-w-[300px] text-left">
                 {typingText}
                 <span className="animate-pulse text-white">|</span>
               </span>
+            </div> */}
+            <div className="text-2xl md:text-3xl text-blue-200 mb-8 h-12 flex items-center justify-center">
+              <span className="mr-2">I'm a</span>
+              <div className="text-yellow-300 font-semibold w-[300px] text-left whitespace-nowrap overflow-hidden">
+                <span>{typingText}</span>
+                <span className="animate-pulse text-white ml-1">|</span>
+              </div>
             </div>
+
             <p className="text-xl text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed">
               Full Stack Developer with 5+ years of expertise in delivering high-quality, user-focused digital experiences.
             </p>
@@ -539,11 +540,21 @@ const AnimatedResume: React.FC = () => {
                 transform: `translateX(${isVisible ? 0 : -50}px)`
               }}
             >
-              <img 
+              {/* <img 
                 src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 alt="Contact" 
                 className="w-full rounded-xl shadow-2xl"
-              />
+              /> */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15543.116698001637!2d77.5734042!3d13.113171200000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1753475445857!5m2!1sen!2sin"
+                className="w-full rounded-xl shadow-2xl"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Google Map Location"
+              ></iframe>
             </div>
             
             <div 
