@@ -16,10 +16,20 @@ import {
   Send,
   User,
   Award,
-  Zap
+  Zap,
+  Terminal,
+  GitBranch,
+  Settings,
+  Monitor,
+  Package,
+  FileText,
+  Cloud,
+  Wrench
 } from 'lucide-react';
-import myImage from '../assets/images/my-image.jpeg';
-import project1Img from '../assets/images/project1.webp'
+import myImage from '../assets/images/professional.jpeg';
+import project1Img from '../assets/images/project1.webp';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 interface Skill {
   name: string;
@@ -27,6 +37,13 @@ interface Skill {
   icon: React.ReactNode;
 }
 
+
+interface Tool {
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  category: string;
+}
 interface Experience {
   title: string;
   company: string;
@@ -95,11 +112,93 @@ const AnimatedResume: React.FC = () => {
     { name: 'Angular JS', level: 70, icon: <Layout className="text-red-500" size={24} /> },
     { name: 'Node.js', level: 50, icon: <Server className="text-green-500" size={24} /> },
     { name: 'JavaScript', level: 82, icon: <Code2 className="text-yellow-500" size={24} /> },
+    { name: 'jQuery', level: 60, icon: <Code2 className="text-blue-700" size={24} /> },
     { name: 'Material UI', level: 60, icon: <Layout className="text-blue-400" size={24} /> },
     { name: 'Bootstrap', level: 70, icon: <Layout className="text-purple-500" size={24} /> },
     { name: 'CSS3', level: 80, icon: <Code2 className="text-blue-600" size={24} /> },
     { name: 'HTML5', level: 95, icon: <Code2 className="text-orange-500" size={24} /> },
-    { name: 'jQuery', level: 60, icon: <Code2 className="text-blue-700" size={24} /> },
+  ];
+
+ 
+const tools: Tool[] = [
+    {
+      name: 'Visual Studio Code',
+      description: 'Primary code editor for development',
+      icon: <Code2 className="text-blue-600" size={32} />,
+      category: 'Editor'
+    },
+    {
+      name: 'Git & GitHub',
+      description: 'Version control and collaboration',
+      icon: <GitBranch className="text-orange-600" size={32} />,
+      category: 'Version Control'
+    },
+    {
+      name: 'Postman',
+      description: 'API testing and development',
+      icon: <Settings className="text-orange-500" size={32} />,
+      category: 'API Testing'
+    },
+    // {
+    //   name: 'Azure DevOps',
+    //   description: 'Project management and CI/CD',
+    //   icon: <Cloud className="text-blue-500" size={32} />,
+    //   category: 'DevOps'
+    // },
+    {
+      name: 'Figma',
+      description: 'UI/UX design and prototyping',
+      icon: <Layout className="text-purple-500" size={32} />,
+      category: 'Design'
+    },
+    {
+      name: 'Chrome DevTools, React Developer Tool',
+      description: 'Debugging and performance analysis',
+      icon: <Monitor className="text-green-500" size={32} />,
+      category: 'Debugging'
+    },
+    {
+      name: 'NPM/Yarn',
+      description: 'Package management',
+      icon: <Package className="text-red-500" size={32} />,
+      category: 'Package Manager'
+    },
+    {
+      name: 'Terminal/Command Line',
+      description: 'System administration and scripting',
+      icon: <Terminal className="text-gray-700" size={32} />,
+      category: 'CLI'
+    },
+    {
+      name: 'Azure Board',
+      description: 'Issue tracking and project management',
+      icon: <FileText className="text-blue-500" size={32} />,
+      category: 'Project Management'
+    },
+    {
+      name: 'Webpack/Vite',
+      description: 'Build tools and bundlers',
+      icon: <Wrench className="text-yellow-600" size={32} />,
+      category: 'Build Tools'
+    },
+    {
+      name: 'ESLint/Prettier',
+      description: 'Code formatting and linting',
+      icon: <Settings className="text-purple-600" size={32} />,
+      category: 'Code Formatting'
+    },
+    {
+      name: 'Sonar Qube',
+      description: 'Bugs, Vulnerabilities, Code Smells, Coverages, Duplication',
+      icon: <Settings className="text-purple-600" size={32} />,
+      category: 'Code Quality'
+    },
+    {
+      name: 'Azure Blob Storage',
+      description: 'Cloud storage and file management',
+      icon: <Database className="text-blue-600" size={32} />,
+      category: 'Cloud Storage'
+    }
   ];
 
   const experiences: Experience[] = [
@@ -168,7 +267,7 @@ const AnimatedResume: React.FC = () => {
       degree: 'Bachlor Science',
       institution: 'Sree Chaitanya Degree College',
       year: '2011 - 2014',
-      grade: '-'
+      grade: '60%'
     }
   ];
 
@@ -192,9 +291,41 @@ const AnimatedResume: React.FC = () => {
     
   ];
 
+  // const handleDownloadResume = () => {
+  //   // In a real application, this would trigger a PDF download
+  //   alert('Resume download would start here!');
+  // };
+
   const handleDownloadResume = () => {
-    // In a real application, this would trigger a PDF download
-    alert('Resume download would start here!');
+  const link = document.createElement("a");
+  link.href = "/assets/pdf/Resume.pdf";
+  link.download = "Resume.pdf"; // This sets the file name
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+ // Group tools by category
+  const groupedTools = tools.reduce((acc, tool) => {
+    if (!acc[tool.category]) {
+      acc[tool.category] = [];
+    }
+    acc[tool.category].push(tool);
+    return acc;
+  }, {} as Record<string, Tool[]>);
+
+ 
+  const contactSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    subject: Yup.string().required('Subject is required'),
+    message: Yup.string().min(10, 'Message should be at least 10 characters').required('Message is required'),
+  });
+
+  const handleFormSubmit = (values: any, { resetForm }: any) => {
+    console.log('Submitted:', values);
+    alert('Thanks for reaching out! I will get back to you soon.');
+    resetForm();
   };
 
   return (
@@ -226,7 +357,7 @@ const AnimatedResume: React.FC = () => {
                 <span className="animate-pulse text-white">|</span>
               </span>
             </div> */}
-            <div className="text-2xl md:text-3xl text-blue-200 mb-8 h-12 flex items-center justify-center">
+            <div className="text-2xl md:text-3xl text-blue-200 mb-8 h-12 flex items-center justify-center flex-wrap">
               <span className="mr-2">I'm a</span>
               <div className="text-yellow-300 font-semibold w-[300px] text-left whitespace-nowrap overflow-hidden">
                 <span>{typingText}</span>
@@ -235,7 +366,7 @@ const AnimatedResume: React.FC = () => {
             </div>
 
             <p className="text-xl text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Full Stack Developer with 5+ years of expertise in delivering high-quality, user-focused digital experiences.
+              Full Stack Developer with 6 years of expertise in delivering high-quality, user-focused digital experiences.
             </p>
             <button 
               onClick={handleDownloadResume}
@@ -280,7 +411,7 @@ const AnimatedResume: React.FC = () => {
             >
               <h2 className="text-4xl font-bold text-gray-800 mb-6">Arukala Laxman</h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                I'm a passionate Full Stack Developer with over 5 years of experience in creating 
+                I'm a passionate Full Stack Developer with over 6 years of experience in creating 
                 robust, scalable web applications. I specialize in React.js, Angular, and Node.js, 
                 with a keen eye for user experience and performance optimization.
               </p>
@@ -341,10 +472,86 @@ const AnimatedResume: React.FC = () => {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* Section 4: Experience */}
+      {/* Section 4: Tools & Technologies */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Tools & Technologies</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+            <p className="text-xl text-gray-600 mt-6">Development tools and software I use daily</p>
+          </div>
+          
+          {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {tools.map((tool, index) => (
+              <div 
+                key={tool.name}
+                className="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 transform border border-gray-100 hover:border-blue-200"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: `translateY(${isVisible ? 0 : 30}px)`,
+                  transitionDelay: `${index * 50}ms`
+                }}
+              >
+                <div className="text-center">
+                  <div className="mb-4 flex justify-center">
+                    <div className="p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full">
+                      {tool.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{tool.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3 leading-relaxed">{tool.description}</p>
+                  <div className="inline-block">
+                    <span className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+                      {tool.category}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div> */}
+
+          {/* Alternative grouped layout */}
+          <div className="mt-16">
+            {/* <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">Organized by Category</h3> */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Object.entries(groupedTools).map(([category, categoryTools], categoryIndex) => (
+                <div 
+                  key={category}
+                  className="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-lg p-6 border border-gray-100"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: `translateY(${isVisible ? 0 : 30}px)`,
+                    transitionDelay: `${categoryIndex * 100 + 800}ms`
+                  }}
+                >
+                  <h4 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+                    {category}
+                  </h4>
+                  <div className="space-y-3">
+                    {categoryTools.map((tool, toolIndex) => (
+                      <div key={tool.name} className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-50 transition-colors">
+                        <div className="flex-shrink-0">
+                          {React.cloneElement(tool.icon as React.ReactElement, { size: 20 })}
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-800 text-sm">{tool.name}</p>
+                          <p className="text-xs text-gray-600">{tool.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Experience */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -545,7 +752,7 @@ const AnimatedResume: React.FC = () => {
                 alt="Contact" 
                 className="w-full rounded-xl shadow-2xl"
               /> */}
-              <iframe
+              {/* <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15543.116698001637!2d77.5734042!3d13.113171200000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1753475445857!5m2!1sen!2sin"
                 className="w-full rounded-xl shadow-2xl"
                 height="450"
@@ -554,7 +761,66 @@ const AnimatedResume: React.FC = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Google Map Location"
-              ></iframe>
+              ></iframe> */}
+              <Formik
+                initialValues={{ name: '', email: '', subject: '', message: '' }}
+                validationSchema={contactSchema}
+                onSubmit={handleFormSubmit}
+              >
+                {() => (
+                  <Form className="space-y-6 bg-white p-8 rounded-xl shadow-lg">
+                    <div>
+                      <label htmlFor="name" className="block font-medium text-gray-700">Name</label>
+                      <Field
+                        type="text"
+                        name="name"
+                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                      <ErrorMessage name="name" component="div" className="text-sm text-red-500 mt-1" />
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
+                      <Field
+                        type="email"
+                        name="email"
+                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                      <ErrorMessage name="email" component="div" className="text-sm text-red-500 mt-1" />
+                    </div>
+
+                    <div>
+                      <label htmlFor="subject" className="block font-medium text-gray-700">Subject</label>
+                      <Field
+                        type="text"
+                        name="subject"
+                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                      <ErrorMessage name="subject" component="div" className="text-sm text-red-500 mt-1" />
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block font-medium text-gray-700">Message</label>
+                      <Field
+                        as="textarea"
+                        name="message"
+                        rows={5}
+                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                      <ErrorMessage name="message" component="div" className="text-sm text-red-500 mt-1" />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-full text-lg font-semibold flex items-center gap-3 transform hover:scale-105 transition-all duration-300 shadow-lg"
+                    >
+                      <Send size={20} />
+                      Send Message
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+
             </div>
             
             <div 
@@ -595,10 +861,10 @@ const AnimatedResume: React.FC = () => {
                   </div>
                 </div>
                 
-                <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-3 transform hover:scale-105 transition-all duration-300 shadow-2xl">
+                {/* <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-3 transform hover:scale-105 transition-all duration-300 shadow-2xl" onClick={handleGetInTouch}>
                   <Send size={24} />
                   Get In Touch
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
