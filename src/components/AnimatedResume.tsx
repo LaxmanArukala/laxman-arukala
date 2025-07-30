@@ -109,11 +109,12 @@ const AnimatedResume: React.FC = () => {
 
   const skills: Skill[] = [
     { name: 'React JS', level: 75, icon: <Code2 className="text-blue-500" size={24} /> },
-    { name: 'Angular JS', level: 70, icon: <Layout className="text-red-500" size={24} /> },
-    { name: 'Node.js', level: 50, icon: <Server className="text-green-500" size={24} /> },
+    { name: 'Node.js', level: 70, icon: <Server className="text-green-500" size={24} /> },
+    { name: 'Angular JS', level: 40, icon: <Server className="text-green-500" size={24} /> },
     { name: 'JavaScript', level: 82, icon: <Code2 className="text-yellow-500" size={24} /> },
     { name: 'jQuery', level: 60, icon: <Code2 className="text-blue-700" size={24} /> },
     { name: 'Material UI', level: 60, icon: <Layout className="text-blue-400" size={24} /> },
+    { name: 'TailWind CSS', level: 70, icon: <Layout className="text-red-500" size={24} /> },
     { name: 'Bootstrap', level: 70, icon: <Layout className="text-purple-500" size={24} /> },
     { name: 'CSS3', level: 80, icon: <Code2 className="text-blue-600" size={24} /> },
     { name: 'HTML5', level: 95, icon: <Code2 className="text-orange-500" size={24} /> },
