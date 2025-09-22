@@ -219,7 +219,7 @@ const tools: Tool[] = [
     {
       title: 'Web UI/UX Developer',
       company: 'Immersion Software Labs PVT LTD.',
-      duration: 'March 2021 - Nov 23',
+      duration: 'June 2019 - Nov 23',
       responsibilities: [
         'Developed dynamic and responsive front-end applications using Angular and React JS, adhering to modular and scalable architecture principles.',
         'Created reusable components and custom UI widgets to ensure consistent user experience across multiple projects.',
