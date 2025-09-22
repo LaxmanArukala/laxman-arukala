@@ -231,18 +231,18 @@ const tools: Tool[] = [
         'Ensured accessibility, mobile responsiveness, and cross-browser compatibility across all supported platforms using best UI practices.'
       ]
     },
-    {
-      title: 'UI Developer',
-      company: 'SignerTech IT Solutions',
-      duration: 'June 2019 - March 2021',
-      responsibilities: [
-        'Designed and implemented front-end features using HTML5, CSS3, JavaScript, and AJAX for dynamic content loading.',
-        'Developed responsive designs compatible across devices and browsers (Chrome, Firefox, Safari).',
-        'Used Git for version control and collaborated with backend developers on API integration.',
-        'Migrated legacy UI components to modern web standards for better performance and maintainability.',
-        'Created reusable CSS frameworks and contributed to internal documentation for UI design guidelines.'
-      ]
-    },
+    // {
+    //   title: 'UI Developer',
+    //   company: 'SignerTech IT Solutions',
+    //   duration: 'June 2019 - March 2021',
+    //   responsibilities: [
+    //     'Designed and implemented front-end features using HTML5, CSS3, JavaScript, and AJAX for dynamic content loading.',
+    //     'Developed responsive designs compatible across devices and browsers (Chrome, Firefox, Safari).',
+    //     'Used Git for version control and collaborated with backend developers on API integration.',
+    //     'Migrated legacy UI components to modern web standards for better performance and maintainability.',
+    //     'Created reusable CSS frameworks and contributed to internal documentation for UI design guidelines.'
+    //   ]
+    // },
     {
       title: 'UI Developer',
       company: 'Nevexa Digital PVT LTD',
