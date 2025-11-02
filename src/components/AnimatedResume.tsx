@@ -28,8 +28,9 @@ import {
 } from 'lucide-react';
 import myImage from '../assets/images/professional.jpeg';
 import project1Img from '../assets/images/project1.webp';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import enviteCards from '../assets/images/envitecards.svg'
+
+import ContactFrom from './ContactFrom';
 
 interface Skill {
   name: string;
@@ -108,12 +109,13 @@ const AnimatedResume: React.FC = () => {
   }, [currentRole]);
 
   const skills: Skill[] = [
-    { name: 'React JS', level: 75, icon: <Code2 className="text-blue-500" size={24} /> },
     { name: 'Node.js', level: 70, icon: <Server className="text-green-500" size={24} /> },
-    { name: 'Angular JS', level: 40, icon: <Server className="text-green-500" size={24} /> },
+    { name: 'Express.js', level: 70, icon: <Server className="text-green-500" size={24} /> },
+    { name: 'React JS', level: 90, icon: <Code2 className="text-blue-500" size={24} /> },
+    { name: 'Angular JS', level: 40, icon: <Code2 className="text-green-500" size={24} /> },
     { name: 'JavaScript', level: 82, icon: <Code2 className="text-yellow-500" size={24} /> },
     { name: 'jQuery', level: 60, icon: <Code2 className="text-blue-700" size={24} /> },
-    { name: 'Material UI', level: 60, icon: <Layout className="text-blue-400" size={24} /> },
+    { name: 'Material UI', level: 80, icon: <Layout className="text-blue-400" size={24} /> },
     { name: 'TailWind CSS', level: 70, icon: <Layout className="text-red-500" size={24} /> },
     { name: 'Bootstrap', level: 70, icon: <Layout className="text-purple-500" size={24} /> },
     { name: 'CSS3', level: 80, icon: <Code2 className="text-blue-600" size={24} /> },
@@ -195,7 +197,7 @@ const tools: Tool[] = [
       category: 'Code Quality'
     },
     {
-      name: 'Azure Blob Storage',
+      name: 'Azure Blob Storage & AWS S3',
       description: 'Cloud storage and file management',
       icon: <Database className="text-blue-600" size={32} />,
       category: 'Cloud Storage'
@@ -206,7 +208,7 @@ const tools: Tool[] = [
     {
       title: 'Senior Software Engineer ',
       company: 'SLK Software PVT LTD.',
-      duration: 'Nov 2023 - Present',
+      duration: 'Nov 2024 - Present',
       responsibilities: [
         'Developed interactive and reusable UI components using React JS, leveraging custom hooks and modern React practices.',
         'Built dynamic forms using Formik with custom validation logic, and developed PDF localization features for highlighting extracted text accurately.',
@@ -219,7 +221,7 @@ const tools: Tool[] = [
     {
       title: 'Web UI/UX Developer',
       company: 'Immersion Software Labs PVT LTD.',
-      duration: 'June 2019 - Nov 23',
+      duration: 'June 2019 - Nov 24',
       responsibilities: [
         'Developed dynamic and responsive front-end applications using Angular and React JS, adhering to modular and scalable architecture principles.',
         'Created reusable components and custom UI widgets to ensure consistent user experience across multiple projects.',
@@ -276,7 +278,7 @@ const tools: Tool[] = [
      {
       title: 'QC Tool',
       description: 'A smart quality check tool designed to automate and streamline inspection workflows.It ensures accuracy and consistency across processes with real-time validation.Customizable rules and reports help detect errors early and maintain high standards.Ideal for manufacturing, content review, data validation, and compliance checks.',
-      technologies: ['React JS', 'Redux', 'Tailwind CSS', 'Material UI', 'Formik', 'Auth0', 'Apache Charts', 'Node JS'],
+      technologies: ['React JS', 'Redux', 'Tailwind CSS', 'Material UI', 'Formik', 'Auth0', 'Apache Charts', 'Node JS','Express JS', 'PostgreSQL'],
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
       liveUrl: 'https://qc.artpark.ai',
       githubUrl: ''
@@ -284,9 +286,17 @@ const tools: Tool[] = [
     {
       title: 'AR Gallery',
       description: 'We built a powerful AR solution to enhance engagement across industries.From interactive print and packaging to immersive e-commerce and education,it brings products and content to life with 3D, 360°, and real-time previews.Perfect for marketing, advertising, expos, and virtual experiences.',
-      technologies: ['Angular JS', 'Node JS', 'Dynamo DB', 'Tailwind CSS'],
+      technologies: ['Angular 12','Bootstrap', 'CSS', 'HTML','Tailwind CSS','S3 Bucket', 'Node JS','Express JS', 'Dynamo DB'],
       image: project1Img,
       liveUrl: 'https://ar.immersionslabs.com',
+      githubUrl: ''
+    },
+    {
+      title: 'Envite Cards',
+      description: 'Envite Cards is the perfect tool for collecting RSVPs online. Envite Cards is first-of-its-kind platform, enabling event planners to easily collect RSVPs',
+      technologies: ['Angular 13','Bootstrap', 'CSS', 'HTML','Tailwind CSS','S3 Bucket', 'Node JS','Express JS', 'Dynamo DB'],
+      image: enviteCards,
+      liveUrl: 'https://site.envitecards.com/home',
       githubUrl: ''
     },
     
@@ -316,18 +326,9 @@ const tools: Tool[] = [
   }, {} as Record<string, Tool[]>);
 
  
-  const contactSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    subject: Yup.string().required('Subject is required'),
-    message: Yup.string().min(10, 'Message should be at least 10 characters').required('Message is required'),
-  });
+ 
 
-  const handleFormSubmit = (values: any, { resetForm }: any) => {
-    console.log('Submitted:', values);
-    alert('Thanks for reaching out! I will get back to you soon.');
-    resetForm();
-  };
+  
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -690,6 +691,7 @@ const tools: Tool[] = [
                       {project.liveUrl && (
                         <a 
                           href={project.liveUrl}
+                          target='_blank'
                           className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors"
                         >
                           <ExternalLink size={18} />
@@ -763,64 +765,7 @@ const tools: Tool[] = [
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Google Map Location"
               ></iframe> */}
-              <Formik
-                initialValues={{ name: '', email: '', subject: '', message: '' }}
-                validationSchema={contactSchema}
-                onSubmit={handleFormSubmit}
-              >
-                {() => (
-                  <Form className="space-y-6 bg-white p-8 rounded-xl shadow-lg">
-                    <div>
-                      <label htmlFor="name" className="block font-medium text-gray-700">Name</label>
-                      <Field
-                        type="text"
-                        name="name"
-                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      />
-                      <ErrorMessage name="name" component="div" className="text-sm text-red-500 mt-1" />
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
-                      <Field
-                        type="email"
-                        name="email"
-                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      />
-                      <ErrorMessage name="email" component="div" className="text-sm text-red-500 mt-1" />
-                    </div>
-
-                    <div>
-                      <label htmlFor="subject" className="block font-medium text-gray-700">Subject</label>
-                      <Field
-                        type="text"
-                        name="subject"
-                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      />
-                      <ErrorMessage name="subject" component="div" className="text-sm text-red-500 mt-1" />
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block font-medium text-gray-700">Message</label>
-                      <Field
-                        as="textarea"
-                        name="message"
-                        rows={5}
-                        className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      />
-                      <ErrorMessage name="message" component="div" className="text-sm text-red-500 mt-1" />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-full text-lg font-semibold flex items-center gap-3 transform hover:scale-105 transition-all duration-300 shadow-lg"
-                    >
-                      <Send size={20} />
-                      Send Message
-                    </button>
-                  </Form>
-                )}
-              </Formik>
+             <ContactFrom/>
 
             </div>
             
