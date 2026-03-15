@@ -377,7 +377,7 @@ const AnimatedResume: React.FC = () => {
         "Tanstack Query",
         "Reactive Forms",
         "Accessibility",
-        "Jest"
+        "Jest",
       ],
       image: "",
       liveUrl: "",
@@ -397,7 +397,7 @@ const AnimatedResume: React.FC = () => {
         "Okta Auth0",
         "Material UI",
         "CSS3",
-         "Jest"
+        "Jest",
       ],
       image: "",
       liveUrl: "",
@@ -421,7 +421,7 @@ const AnimatedResume: React.FC = () => {
         "PostgreSQL",
         "HTML/HTML5",
         "CSS/CSS3",
-         "Jest"
+        "Jest",
       ],
       image: "",
       liveUrl: "",
@@ -436,7 +436,7 @@ const AnimatedResume: React.FC = () => {
         "React JS",
         "Redux/ Redux ToolKit",
 
-         "TypeScript",
+        "TypeScript",
         "JavaScript",
         "Tanstck Query",
         "Tailwind CSS",
@@ -449,7 +449,6 @@ const AnimatedResume: React.FC = () => {
         "PostgreSQL",
         "HTML/HTML5",
         "CSS/CSS3",
-       
       ],
       image:
         "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -471,7 +470,7 @@ const AnimatedResume: React.FC = () => {
         "Express JS",
         "Dynamo DB",
         "HTML/HTML5",
-        "CSS/CSS3"
+        "CSS/CSS3",
       ],
       image: project1Img,
       liveUrl: "https://ar.immersionslabs.com",
@@ -492,7 +491,7 @@ const AnimatedResume: React.FC = () => {
         "Express JS",
         "Dynamo DB",
         "HTML/HTML5",
-        "CSS/CSS3"
+        "CSS/CSS3",
       ],
       image: enviteCards,
       liveUrl: "https://site.envitecards.com/home",
@@ -775,70 +774,73 @@ const AnimatedResume: React.FC = () => {
       </section>
 
       {/* Section 5: Experience */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
+          {/* Header */}
+          <div className="text-center mb-20">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               My Experience
             </h2>
+
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
-            <p className="text-xl text-gray-600 mt-6">
+
+            <p className="text-lg text-gray-600 mt-6">
               Professional journey and achievements
             </p>
           </div>
 
+          {/* Timeline */}
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-600"></div>
+            {/* Center Line */}
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 to-purple-600 h-full"></div>
 
-            <div className="space-y-12">
+            <div className="space-y-16">
               {experiences.map((exp, index) => (
                 <div
                   key={index}
-                  className="relative flex items-start gap-8 transform transition-all duration-700"
-                  style={{
-                    opacity: isVisible ? 1 : 0,
-                    transform: `translateX(${isVisible ? 0 : index % 2 === 0 ? -50 : 50}px)`,
-                    transitionDelay: `${index * 200 + 300}ms`,
-                  }}
+                  className={`flex flex-col md:flex-row items-center md:items-start gap-8 ${
+                    index % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
                 >
-                  {/* Timeline dot */}
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                      <Briefcase className="text-white" size={24} />
+                  {/* Content */}
+                  <div className="md:w-1/2">
+                    <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">
+                        {exp.title}
+                      </h3>
+
+                      <p className="text-blue-600 font-semibold mb-2">
+                        {exp.company}
+                      </p>
+
+                      <div className="flex items-center text-gray-500 mb-4">
+                        <Calendar size={18} className="mr-2" />
+                        {exp.duration}
+                      </div>
+
+                      <div className="space-y-3">
+                        {exp.responsibilities.map((resp, i) => (
+                          <div key={i} className="flex gap-2 items-start">
+                            <Zap
+                              size={16}
+                              className="text-yellow-500 mt-1 flex-shrink-0"
+                            />
+                            <p className="text-gray-700 text-sm leading-relaxed">
+                              {resp}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl shadow-lg p-8 flex-1 hover:shadow-xl transition-shadow duration-300">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                          {exp.title}
-                        </h3>
-                        <p className="text-blue-600 font-semibold text-lg">
-                          {exp.company}
-                        </p>
-                      </div>
-                      <div className="flex items-center text-gray-500 mt-2 md:mt-0">
-                        <Calendar size={20} className="mr-2" />
-                        <span className="font-medium">{exp.duration}</span>
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      {exp.responsibilities.map((resp, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <Zap
-                            className="text-yellow-500 mt-1 flex-shrink-0"
-                            size={16}
-                          />
-                          <p className="text-gray-700 leading-relaxed">
-                            {resp}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
+                  {/* Timeline Dot */}
+                  <div className="relative z-10 hidden md:flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg">
+                    <Briefcase className="text-white" size={18} />
                   </div>
+
+                  {/* Spacer */}
+                  <div className="md:w-1/2"></div>
                 </div>
               ))}
             </div>
