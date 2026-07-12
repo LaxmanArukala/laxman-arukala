@@ -50,46 +50,46 @@ export default function ContactFrom() {
         onSubmit={handleFormSubmit}
         >
         {() => (
-            <Form className="space-y-6 bg-white p-8 rounded-xl shadow-lg">
+            <Form className="space-y-6 bg-white/5 border border-white/10 backdrop-blur-xl p-8 rounded-xl shadow-lg">
             <div>
-                <label htmlFor="name" className="block font-medium text-gray-700">Name</label>
+                <label htmlFor="name" className="block font-medium text-gray-300">Name</label>
                 <Field
                 type="text"
                 name="name"
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="mt-1 block w-full border border-white/10 bg-white/5 rounded-md p-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="name" component="div" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage name="name" component="div" className="text-sm text-red-400 mt-1" />
             </div>
 
             <div>
-                <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
+                <label htmlFor="email" className="block font-medium text-gray-300">Email</label>
                 <Field
                 type="email"
                 name="email"
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="mt-1 block w-full border border-white/10 bg-white/5 rounded-md p-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="email" component="div" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage name="email" component="div" className="text-sm text-red-400 mt-1" />
             </div>
 
             <div>
-                <label htmlFor="subject" className="block font-medium text-gray-700">Subject</label>
+                <label htmlFor="subject" className="block font-medium text-gray-300">Subject</label>
                 <Field
                 type="text"
                 name="subject"
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="mt-1 block w-full border border-white/10 bg-white/5 rounded-md p-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="subject" component="div" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage name="subject" component="div" className="text-sm text-red-400 mt-1" />
             </div>
 
             <div>
-                <label htmlFor="message" className="block font-medium text-gray-700">Message</label>
+                <label htmlFor="message" className="block font-medium text-gray-300">Message</label>
                 <Field
                 as="textarea"
                 name="message"
                 rows={5}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="mt-1 block w-full border border-white/10 bg-white/5 rounded-md p-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="message" component="div" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage name="message" component="div" className="text-sm text-red-400 mt-1" />
             </div>
 
             <button

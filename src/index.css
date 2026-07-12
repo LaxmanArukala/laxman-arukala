@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .glass-light {
+    @apply bg-white/70 backdrop-blur-xl border border-white/60 shadow-xl shadow-indigo-100/50;
+  }
+  .glass-dark {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+  }
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@layer utilities {
+  .animate-marquee-left {
+    animation: marquee-left 32s linear infinite;
+  }
+  .animate-marquee-right {
+    animation: marquee-right 32s linear infinite;
+  }
+}
