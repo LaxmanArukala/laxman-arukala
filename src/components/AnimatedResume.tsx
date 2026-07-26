@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   motion,
   MotionConfig,
@@ -16,7 +16,6 @@ import {
   Server,
   Calendar,
   GraduationCap,
-  ExternalLink,
   Github,
   Send,
   User,
@@ -30,12 +29,11 @@ import {
   FileText,
   Wrench,
   Shield,
+  Search,
+  TrendingUp,
+  Cloud,
+  DollarSign,
 } from "lucide-react";
-import project1Img from "../assets/images/project1.webp";
-import enviteCards from "../assets/images/envitecards.svg";
-import placholderImage from "../assets/images/alter-image.png";
-import aiImage from "../assets/images/ai-image.jpeg";
-
 import ContactFrom from "./ContactFrom";
 import TiltCard from "./TiltCard";
 import GradientBlobs from "./GradientBlobs";
@@ -50,11 +48,15 @@ import {
   staggerContainer,
 } from "./motionVariants";
 
-const HeroScene = lazy(() => import("./three/HeroScene"));
-
 interface Skill {
   name: string;
   level: number;
+  icon: React.ReactNode;
+}
+
+interface Service {
+  title: string;
+  description: string;
   icon: React.ReactNode;
 }
 
@@ -82,8 +84,6 @@ interface Project {
   title: string;
   description: string;
   technologies: string[];
-  image: string;
-  liveUrl?: string;
   githubUrl?: string;
 }
 
@@ -207,6 +207,16 @@ const AnimatedResume: React.FC = () => {
       level: 95,
       icon: <Code2 className="text-orange-500" size={24} />,
     },
+    {
+      name: "SEO",
+      level: 60,
+      icon: <Search className="text-teal-400" size={24} />,
+    },
+    {
+      name: "Digital Marketing",
+      level: 55,
+      icon: <TrendingUp className="text-pink-400" size={24} />,
+    },
   ];
 
   const orbitSkillNames = [
@@ -239,6 +249,49 @@ const AnimatedResume: React.FC = () => {
         "Bootstrap",
         "jQuery",
       ],
+    },
+    {
+      name: "Marketing & Growth",
+      skillNames: ["SEO", "Digital Marketing"],
+    },
+  ];
+
+  const services: Service[] = [
+    {
+      title: "Web Development",
+      description:
+        "End-to-end web application builds — from requirements and architecture through responsive, production-ready interfaces using React, TypeScript, and modern tooling.",
+      icon: <Code2 className="text-blue-400" size={26} />,
+    },
+    {
+      title: "UI/UX Design",
+      description:
+        "User research, wireframes, and interactive prototypes that get validated before development starts, so what ships is intuitive and on-brand.",
+      icon: <Layout className="text-purple-400" size={26} />,
+    },
+    {
+      title: "Backend Development",
+      description:
+        "Secure, well-documented REST APIs, database design, and server-side architecture built to scale with your product, not against it.",
+      icon: <Server className="text-green-400" size={26} />,
+    },
+    {
+      title: "DevOps",
+      description:
+        "CI/CD pipelines, containerization, and automated deployment workflows that ship changes faster with fewer production surprises.",
+      icon: <GitBranch className="text-orange-400" size={26} />,
+    },
+    {
+      title: "Hosting & Infrastructure",
+      description:
+        "Cloud hosting setup and management on AWS/Azure — monitoring, backups, and security baked in so your site stays fast and available.",
+      icon: <Cloud className="text-sky-400" size={26} />,
+    },
+    {
+      title: "Cost Optimization",
+      description:
+        "Architecture and cloud-spend audits that cut infrastructure and technical debt costs without giving up performance or reliability.",
+      icon: <DollarSign className="text-yellow-400" size={26} />,
     },
   ];
 
@@ -410,7 +463,7 @@ const AnimatedResume: React.FC = () => {
     {
       title: "Healthcare Management Platform",
       description:
-        "Worked on a healthcare-focused web platform designed to streamline workflows and improve data management. Built responsive UI components, integrated secure APIs, and implemented scalable frontend architecture following best practices.",
+        "A healthcare-focused web platform built to simplify clinical workflows and centralize data management. Delivered responsive, accessible UI components, integrated secure REST APIs, and architected a scalable frontend foundation for long-term maintainability.",
       technologies: [
         "React",
         "Redux/Redux Toolkit",
@@ -427,14 +480,12 @@ const AnimatedResume: React.FC = () => {
         "Accessibility",
         "Jest",
       ],
-      image: "",
-      liveUrl: "",
       githubUrl: "",
     },
     {
       title: "Cross-Platform Mobile Application",
       description:
-        "Contributed to the development of a React Native mobile application, implementing reusable components, optimizing performance, and integrating APIs to deliver a seamless cross-platform user experience.",
+        "A React Native mobile app engineered for a consistent, high-performance experience across iOS and Android. Built reusable components, optimized rendering performance, and integrated secure authentication with REST APIs.",
       technologies: [
         "React Native",
         "TypeScript",
@@ -447,14 +498,12 @@ const AnimatedResume: React.FC = () => {
         "CSS3",
         "Jest",
       ],
-      image: "",
-      liveUrl: "",
       githubUrl: "",
     },
     {
       title: "AI Feature Prototyping (POC)",
       description:
-        "Developed proof-of-concept AI-driven features for enterprise web applications, focusing on intelligent data extraction, automation, and improved user experience. Collaborated with the team to evaluate feasibility, performance, and integration strategies for AI-powered functionalities.",
+        "Proof-of-concept AI features for an enterprise web application, focused on intelligent data extraction and workflow automation. Partnered with the team to validate feasibility, performance, and integration strategy for AI-powered functionality end to end.",
       technologies: [
         "React",
         "Redux/Redux Toolkit",
@@ -471,15 +520,13 @@ const AnimatedResume: React.FC = () => {
         "CSS/CSS3",
         "Jest",
       ],
-      image: "",
-      liveUrl: "",
       githubUrl: "",
     },
 
     {
       title: "QC Tool",
       description:
-        "A smart quality check tool designed to automate and streamline inspection workflows.It ensures accuracy and consistency across processes with real-time validation.Customizable rules and reports help detect errors early and maintain high standards.Ideal for manufacturing, content review, data validation, and compliance checks.",
+        "A smart quality-check platform that automates and streamlines inspection workflows with real-time validation for accuracy and consistency. Customizable rules and reporting help teams catch errors early — ideal for manufacturing, content review, data validation, and compliance checks.",
       technologies: [
         "React JS",
         "Redux/ Redux ToolKit",
@@ -498,15 +545,12 @@ const AnimatedResume: React.FC = () => {
         "HTML/HTML5",
         "CSS/CSS3",
       ],
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-      liveUrl: "https://qc.artpark.ai",
       githubUrl: "",
     },
     {
       title: "AR Gallery",
       description:
-        "We built a powerful AR solution to enhance engagement across industries.From interactive print and packaging to immersive e-commerce and education,it brings products and content to life with 3D, 360°, and real-time previews.Perfect for marketing, advertising, expos, and virtual experiences.",
+        "An augmented reality platform that brings products and content to life through interactive 3D, 360°, and real-time previews. Built to boost engagement across print, packaging, e-commerce, and education — ideal for marketing, advertising, expos, and virtual experiences.",
       technologies: [
         "Angular 12",
         "Bootstrap",
@@ -520,14 +564,12 @@ const AnimatedResume: React.FC = () => {
         "HTML/HTML5",
         "CSS/CSS3",
       ],
-      image: project1Img,
-      liveUrl: "https://ar.immersionslabs.com",
       githubUrl: "",
     },
     {
       title: "Envite Cards",
       description:
-        "Envite Cards is the perfect tool for collecting RSVPs online. Envite Cards is first-of-its-kind platform, enabling event planners to easily collect RSVPs",
+        "A first-of-its-kind RSVP platform that makes it effortless for event planners to create digital invitations and collect responses online, replacing manual RSVP tracking with a seamless, centralized workflow.",
       technologies: [
         "Angular 13",
         "Bootstrap",
@@ -541,8 +583,6 @@ const AnimatedResume: React.FC = () => {
         "HTML/HTML5",
         "CSS/CSS3",
       ],
-      image: enviteCards,
-      liveUrl: "https://site.envitecards.com/home",
       githubUrl: "",
     },
   ];
@@ -599,125 +639,128 @@ const AnimatedResume: React.FC = () => {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
-        {/* Section 1: Hero — nav + sidebar + text panel + full-bleed 3D visual */}
-        <section id="hero" className="flex min-h-screen flex-col bg-[#0a0a0f]">
+        {/* Section 1: Hero — floating nav + ghost type + arch portrait */}
+        <section
+          id="hero"
+          className="relative flex min-h-screen flex-col overflow-hidden bg-[#0a0a0f]"
+        >
           <NavBar />
 
-          <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
-            {/* Sidebar */}
-            <div className="hidden md:flex w-16 flex-shrink-0 flex-col items-center justify-between border-r border-white/10 py-10">
-              <div className="flex flex-1 items-center">
-                <span className="[writing-mode:vertical-rl] rotate-180 text-xs font-semibold uppercase tracking-[0.3em] text-gray-500">
-                  Portfolio
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-5">
-                <a
-                  href="mailto:laxmanarukala@yahoo.com"
-                  aria-label="Email"
-                  className="text-gray-500 transition-colors hover:text-white"
+          {/* Ambient glow */}
+          <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-600/10 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-blue-600/10 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-10 right-0 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl" />
+
+          {/* Giant ghost word */}
+          <div className="pointer-events-none absolute inset-x-0 top-[14%] flex justify-center select-none md:top-[18%]">
+            <span className="whitespace-nowrap text-[20vw] font-black uppercase leading-none tracking-tight text-white/[0.04] md:text-[13vw]">
+              Developer
+            </span>
+          </div>
+
+          <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-6 pt-28 pb-10 md:flex-row md:items-center md:px-10 md:pt-32 lg:gap-16">
+            {/* Arch portrait + floating badges */}
+            <div className="relative order-1 flex items-center justify-center md:order-2 md:flex-1 md:justify-end">
+              {/* Sized wrapper — every badge/card below is positioned relative to this, not the full-width row */}
+              <div className="relative h-[300px] w-[240px] sm:h-[380px] sm:w-[300px] md:h-[460px] md:w-[370px]">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, ease: "easeOut" }}
+                  className="absolute inset-0 overflow-hidden rounded-t-full rounded-b-[2.5rem] bg-gradient-to-b from-blue-600/30 via-indigo-700/20 to-transparent ring-1 ring-white/10"
                 >
-                  <Mail size={18} />
-                </a>
-                <a
-                  href="tel:+918886888762"
-                  aria-label="Phone"
-                  className="text-gray-500 transition-colors hover:text-white"
+                  <div
+                    className="absolute inset-0 opacity-25"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)",
+                      backgroundSize: "20px 20px",
+                    }}
+                  />
+                  <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/20 blur-3xl" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="bg-gradient-to-br from-blue-300 to-purple-300 bg-clip-text text-5xl font-black tracking-tight text-transparent sm:text-6xl md:text-7xl">
+                      LA
+                    </span>
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
+                  animate={{ opacity: 1, scale: 1, rotate: -6 }}
+                  transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
+                  className="absolute -left-3 top-[6%] whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-semibold text-white shadow-lg backdrop-blur-md sm:-left-6 sm:px-4 sm:py-2 sm:text-xs"
                 >
-                  <Phone size={18} />
-                </a>
-                <button
-                  onClick={handleDownloadResume}
-                  aria-label="Download resume"
-                  className="text-gray-500 transition-colors hover:text-white"
+                  React JS
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.6, rotate: 6 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 6 }}
+                  transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+                  className="absolute -right-3 top-[30%] whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-semibold text-white shadow-lg backdrop-blur-md sm:-right-6 sm:px-4 sm:py-2 sm:text-xs"
                 >
-                  <Download size={18} />
-                </button>
+                  Node.js
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1, type: "spring", stiffness: 180 }}
+                  className="absolute -right-3 bottom-[24%] w-28 rounded-xl border border-white/10 bg-white/[0.06] p-2.5 shadow-2xl backdrop-blur-md sm:-right-4 sm:w-36 sm:rounded-2xl sm:p-3.5"
+                >
+                  <p className="text-[9px] leading-tight text-gray-400 sm:text-[11px]">
+                    Years Crafting
+                    <br />
+                    Digital Products
+                  </p>
+                  <p className="mt-1 text-base font-bold text-white sm:mt-2 sm:text-2xl">
+                    7+
+                  </p>
+                </motion.div>
+
+                {/* CTA — sits over the bottom of the arch */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.1, duration: 0.7, ease: "easeOut" }}
+                  className="absolute inset-x-0 bottom-0 flex flex-col items-center px-4 pb-4 text-center sm:px-6 sm:pb-6"
+                >
+                  <motion.button
+                    onClick={handleDownloadResume}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-2xl shadow-blue-500/20 hover:from-blue-600 hover:to-purple-700 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm"
+                  >
+                    <Download size={14} className="sm:hidden" />
+                    <Download size={16} className="hidden sm:block" />
+                    Download Resume
+                  </motion.button>
+                </motion.div>
               </div>
             </div>
 
-            {/* Text panel */}
-            <div className="relative order-1 flex flex-1 items-center px-6 sm:px-10 md:px-16 py-16 md:py-0">
-              <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute top-10 right-0 w-56 h-56 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
-                className="relative z-10 max-w-xl"
-              >
-                <div className="mb-4 flex flex-col items-start">
-                  <span className="h-9 w-px bg-gradient-to-b from-transparent to-blue-500" />
-                  <span className="-mt-0.5 h-1.5 w-1.5 rounded-full bg-blue-500" />
-                </div>
-                <p className="text-blue-400 tracking-[0.3em] text-xs md:text-sm font-semibold uppercase mb-5">
-                  Full Stack Developer · Bengaluru
-                </p>
-                <h1 className="text-6xl sm:text-7xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-5 tracking-tight">
-                  Laxman Arukala
+            {/* Text block */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+              className="relative z-10 order-2 flex items-center md:order-1 md:flex-1"
+            >
+              <div className="max-w-lg">
+                <p className="mb-3 text-sm text-gray-400">Hey, I'm Laxman.</p>
+                <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
+                  Full Stack Development
                 </h1>
-                <div className="flex items-center gap-2 text-lg md:text-xl mb-8">
-                  <span className="text-gray-400 font-normal">I'm a</span>
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold w-[16ch] text-left whitespace-nowrap overflow-hidden inline-block">
+                <div className="mt-5 flex items-center gap-2 text-base md:text-lg">
+                  <span className="font-normal text-gray-400">I'm a</span>
+                  <span className="inline-block w-[16ch] overflow-hidden whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-left font-semibold text-transparent">
                     {typingText}
-                    <span className="animate-pulse text-white ml-1">|</span>
+                    <span className="ml-1 animate-pulse text-white">|</span>
                   </span>
                 </div>
-                <p className="text-base md:text-lg text-gray-400 mb-10 max-w-md leading-relaxed">
-                  7 years of expertise in delivering high-quality, user-focused
-                  digital experiences.
-                </p>
-                <motion.button
-                  onClick={handleDownloadResume}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-3 shadow-2xl shadow-blue-500/20"
-                >
-                  <Download size={24} />
-                  Download Resume
-                </motion.button>
-              </motion.div>
-            </div>
-
-            {/* Right: full-bleed 3D visual with floating skill badges */}
-            <div className="relative order-2 md:w-[45%] h-96 md:h-auto overflow-hidden">
-              <Suspense
-                fallback={
-                  <div className="h-full w-full animate-pulse bg-gradient-to-br from-gray-900 to-indigo-950" />
-                }
-              >
-                <HeroScene />
-              </Suspense>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
-                className="absolute left-[10%] top-[16%] flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-xl md:h-20 md:w-20"
-              >
-                <Code2 className="text-blue-600" size={28} />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.9, type: "spring", stiffness: 200 }}
-                className="absolute right-[12%] top-[42%] flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-xl md:h-16 md:w-16"
-              >
-                <Server className="text-green-600" size={24} />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.1, type: "spring", stiffness: 200 }}
-                className="absolute left-[16%] bottom-[16%] flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-xl md:h-20 md:w-20"
-              >
-                <Database className="text-purple-600" size={26} />
-              </motion.div>
-
-              <div className="absolute right-[22%] top-[10%] hidden h-8 w-8 rounded-full border-2 border-white/30 md:block" />
-              <div className="absolute left-[8%] bottom-[38%] hidden h-6 w-6 rounded-full border-2 border-white/20 md:block" />
-            </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -800,6 +843,63 @@ const AnimatedResume: React.FC = () => {
           </div>
         </section>
 
+        {/* Section 2.5: Services — end-to-end offering */}
+        <section id="services" className="relative py-24 bg-[#0a0a0f] overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+          </div>
+
+          <div className="relative z-10 max-w-6xl mx-auto px-6">
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              className="max-w-2xl mb-16"
+            >
+              <p className="text-sm font-semibold tracking-widest text-blue-400 uppercase mb-4">
+                Services
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                End-to-end delivery, from idea to production
+              </h2>
+              <p className="text-lg text-gray-400 leading-relaxed">
+                I take websites and software products through the full
+                lifecycle — design, build, ship, and run — so you get one
+                accountable partner instead of piecing it together across
+                vendors.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {services.map((service) => (
+                <motion.div
+                  key={service.title}
+                  variants={fadeInUp}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 hover:border-white/20 transition-colors"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 mb-5">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    {service.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
         {/* Section 3: Skills — dark showcase, 3D orbit + tag cloud (no cards) */}
         <section id="skills" className="relative py-24 bg-gradient-to-b from-[#0a0a0f] via-indigo-950 to-purple-950 overflow-hidden">
           <div className="absolute inset-0">
@@ -862,7 +962,7 @@ const AnimatedResume: React.FC = () => {
           </div>
         </section>
 
-        {/* Section 5: Experience — single-column editorial timeline */}
+        {/* Section 5: Experience — left-rail timeline */}
         <section id="experience" className="py-24 bg-[#0a0a0f]">
           <div className="max-w-4xl mx-auto px-6">
             <motion.div
@@ -881,88 +981,65 @@ const AnimatedResume: React.FC = () => {
             </motion.div>
 
             <div className="relative" ref={timelineRef}>
-              {/* Center line - desktop */}
-              <div className="hidden md:block absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-white/10">
-                <motion.div
-                  className="w-full bg-gradient-to-b from-blue-500 to-purple-600 origin-top"
-                  style={{ scaleY: lineScale, height: "100%" }}
-                />
-              </div>
-              {/* Left line - mobile */}
-              <div className="md:hidden absolute left-2 top-0 h-full w-0.5 bg-white/10">
+              {/* Rail */}
+              <div className="absolute left-5 md:left-6 top-2 bottom-2 w-px bg-white/10">
                 <motion.div
                   className="w-full bg-gradient-to-b from-blue-500 to-purple-600 origin-top"
                   style={{ scaleY: lineScale, height: "100%" }}
                 />
               </div>
 
-              <div className="space-y-12 md:space-y-16">
-                {experiences.map((exp, index) => {
-                  const isEven = index % 2 === 0;
-                  return (
+              <div className="space-y-10">
+                {experiences.map((exp, index) => (
+                  <motion.div
+                    key={index}
+                    className="relative flex gap-5 md:gap-8 pl-0"
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     <motion.div
-                      key={index}
-                      className={`relative flex flex-col gap-6 pl-8 md:flex-row md:items-start md:gap-0 md:pl-0 ${
-                        isEven ? "md:flex-row-reverse" : ""
-                      }`}
-                      variants={isEven ? fadeInRight : fadeInLeft}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.3 }}
+                      className="relative z-10 flex h-10 w-10 md:h-12 md:w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-xs md:text-sm font-bold text-white shadow-lg shadow-blue-950/40"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{ type: "spring", stiffness: 260, damping: 18 }}
                     >
-                      <div className="absolute left-0 top-1.5 h-3 w-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 md:hidden" />
-
-                      <div className="md:w-[calc(50%-2.75rem)]">
-                        <div className="glass-dark rounded-3xl p-6 md:p-8">
-                          <div className="flex items-center gap-4 mb-3">
-                            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-sm font-bold text-white">
-                              {exp.company.trim().slice(0, 2).toUpperCase()}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-bold text-white">
-                                {exp.title}
-                              </h3>
-                              <p className="text-blue-400 font-semibold text-sm">
-                                {exp.company}
-                              </p>
-                            </div>
-                          </div>
-                          <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-gray-400 mb-4">
-                            <Calendar size={13} />
-                            {exp.duration}
-                          </span>
-                          <div className="space-y-2">
-                            {exp.responsibilities.map((resp, i) => (
-                              <div key={i} className="flex gap-2 items-start">
-                                <Zap
-                                  size={13}
-                                  className="text-yellow-500 mt-1 flex-shrink-0"
-                                />
-                                <p className="text-gray-400 text-sm leading-relaxed">
-                                  {resp}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <motion.div
-                        className="absolute left-1/2 top-2 hidden h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full border-4 border-[#0a0a0f] bg-gradient-to-r from-blue-500 to-purple-600 md:flex"
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true, amount: 0.6 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 18,
-                        }}
-                      />
-
-                      <div className="hidden md:block md:w-[calc(50%-2.75rem)]" />
+                      {exp.company.trim().slice(0, 2).toUpperCase()}
                     </motion.div>
-                  );
-                })}
+
+                    <div className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 hover:border-white/20 transition-colors">
+                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-white">
+                            {exp.title}
+                          </h3>
+                          <p className="text-blue-400 font-semibold text-sm">
+                            {exp.company}
+                          </p>
+                        </div>
+                        <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-gray-400">
+                          <Calendar size={13} />
+                          {exp.duration}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        {exp.responsibilities.map((resp, i) => (
+                          <div key={i} className="flex gap-2 items-start">
+                            <Zap
+                              size={13}
+                              className="text-yellow-500 mt-1 flex-shrink-0"
+                            />
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                              {resp}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
@@ -1031,7 +1108,7 @@ const AnimatedResume: React.FC = () => {
           </div>
         </section>
 
-        {/* Section 7: Projects — alternating bleed images */}
+        {/* Section 7: Projects — text-only cards */}
         <section id="projects" className="relative py-24 bg-[#0a0a0f] overflow-hidden">
           <div className="max-w-6xl mx-auto px-6 mb-16 text-center">
             <motion.p
@@ -1054,111 +1131,51 @@ const AnimatedResume: React.FC = () => {
             </motion.h2>
           </div>
 
-          <div className="space-y-20 md:space-y-28">
-            {projects.map((project, index) => {
-              const imageFirst = index % 2 === 0;
-              const textContent = (
-                <div
-                  className={`relative px-6 py-10 md:py-16 ${
-                    imageFirst
-                      ? "md:pl-12 lg:pl-16 md:pr-10"
-                      : "md:pr-12 lg:pr-16 md:pl-10"
-                  }`}
-                >
-                  <span className="absolute -top-2 md:top-4 left-6 text-[90px] md:text-[110px] font-black text-white/5 select-none leading-none pointer-events-none">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-white mb-4">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 text-xs rounded-full shadow-sm"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-4">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          className="flex items-center gap-2 text-blue-400 hover:underline"
-                        >
-                          <ExternalLink size={18} />
-                          Live Demo
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          className="flex items-center gap-2 text-gray-400 hover:underline"
-                        >
-                          <Github size={18} />
-                          Source Code
-                        </a>
-                      )}
-                    </div>
+          <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 gap-6 md:gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                className="relative rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 md:px-8 md:py-10 overflow-hidden"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.15 }}
+              >
+                <span className="absolute -top-3 right-5 text-[70px] md:text-[80px] font-black text-white/5 select-none leading-none pointer-events-none">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold text-white mb-4">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.technologies.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 text-xs rounded-full shadow-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        className="flex items-center gap-2 text-gray-400 hover:underline"
+                      >
+                        <Github size={18} />
+                        Source Code
+                      </a>
+                    )}
                   </div>
                 </div>
-              );
-
-              const imageContent = (
-                <TiltCard
-                  className={`h-72 md:h-[420px] w-full overflow-hidden shadow-2xl ${
-                    imageFirst
-                      ? "md:rounded-r-3xl"
-                      : "md:rounded-l-3xl"
-                  }`}
-                  maxTilt={4}
-                  scale={1.01}
-                >
-                  <img
-                    src={project.image || placholderImage}
-                    alt={project.title}
-                    onError={(e) => {
-                      e.currentTarget.src = placholderImage;
-                    }}
-                    className="w-full h-full object-cover"
-                  />
-                </TiltCard>
-              );
-
-              return (
-                <motion.div
-                  key={index}
-                  className="grid md:grid-cols-12 items-center gap-y-2"
-                  variants={fadeInUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
-                >
-                  {imageFirst ? (
-                    <>
-                      <div className="md:col-span-7">{imageContent}</div>
-                      <div className="md:col-span-5">{textContent}</div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="md:col-span-5 md:order-1">
-                        {textContent}
-                      </div>
-                      <div className="md:col-span-7 md:order-2">
-                        {imageContent}
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              );
-            })}
+              </motion.div>
+            ))}
           </div>
         </section>
 
