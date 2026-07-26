@@ -13,7 +13,7 @@ const quickLinks = [
 const contactLines = [
   { icon: Mail, value: "laxmanarukala@yahoo.com", href: "mailto:laxmanarukala@yahoo.com" },
   { icon: Phone, value: "+91 888688 8762", href: "tel:+918886888762" },
-  { icon: MapPin, value: "Bengaluru, India", href: undefined },
+  { icon: MapPin, value: "Hyderabad, India", href: undefined },
 ];
 
 const Footer: React.FC = () => {

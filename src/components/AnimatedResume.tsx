@@ -628,7 +628,7 @@ const AnimatedResume: React.FC = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Bengaluru, India",
+      value: "Hyderabad, India",
       color: "bg-red-500",
     },
   ];
@@ -784,7 +784,7 @@ const AnimatedResume: React.FC = () => {
                   <CodeProfileCard
                     name="Laxman Arukala"
                     role={roles[0]}
-                    location="Bengaluru, India"
+                    location="Hyderabad, India"
                     experience="7+ years"
                     companies={companyShortNames}
                     stack={orbitSkillNames.slice(0, 4)}
