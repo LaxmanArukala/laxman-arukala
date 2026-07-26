@@ -39,6 +39,7 @@ import TiltCard from "./TiltCard";
 import GradientBlobs from "./GradientBlobs";
 import MarqueeRow from "./MarqueeRow";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import CodeProfileCard from "./CodeProfileCard";
 import SkillBars from "./SkillBars";
 import {
@@ -1229,6 +1230,8 @@ const AnimatedResume: React.FC = () => {
             </motion.div>
           </div>
         </section>
+
+        <Footer />
       </div>
     </MotionConfig>
   );
