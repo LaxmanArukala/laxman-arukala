@@ -1,4 +1,3 @@
-import React from 'react';
 import AnimatedResume from './components/AnimatedResume';
 
 function App() {
