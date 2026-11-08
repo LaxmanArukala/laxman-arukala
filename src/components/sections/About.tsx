@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { gsap, MQ } from "../../lib/gsap";
 import { SplitWords } from "../fx/Split";
-import { contactItems, experiences, images, profile, stats } from "../../data/portfolio";
+import { contactItems, experiences, profile, stats } from "../../data/portfolio";
 
 /**
  * Scene 2 — About.
@@ -21,27 +21,6 @@ const About: React.FC = () => {
           { xPercent: 10 },
           {
             xPercent: -35,
-            ease: "none",
-            scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
-          },
-        );
-
-        // Portrait: mask opens, image drifts inside its frame
-        gsap.fromTo(
-          ".about-mask",
-          { clipPath: "inset(18% 12% 18% 12% round 24px)" },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 24px)",
-            ease: "none",
-            scrollTrigger: { trigger: ".about-mask", start: "top 90%", end: "top 40%", scrub: true },
-          },
-        );
-        gsap.fromTo(
-          ".about-img",
-          { scale: 1.3, yPercent: -6 },
-          {
-            scale: 1,
-            yPercent: 6,
             ease: "none",
             scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
           },
@@ -161,20 +140,6 @@ const About: React.FC = () => {
           >
             <SplitWords text={profile.aboutHeadline} masked />
           </h2>
-
-          {/* Supplied suit photograph, used as-is (no retouching). */}
-          <div className="about-mask relative mt-12 aspect-[16/10] w-full overflow-hidden rounded-3xl bg-ink-800">
-            <img
-              src={images.professionalPortrait}
-              alt="Laxman Arukala in a navy business suit"
-              width={746}
-              height={1120}
-              loading="lazy"
-              decoding="async"
-              className="about-img absolute inset-0 h-full w-full object-cover object-[50%_22%]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink-950/50 via-transparent to-transparent" />
-          </div>
 
           <p className="about-story mt-12 font-display text-[clamp(1.35rem,2.3vw,2.2rem)] font-medium leading-[1.3] tracking-tight text-white">
             <SplitWords text={profile.about} />
