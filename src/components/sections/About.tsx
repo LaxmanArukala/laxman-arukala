@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { gsap, MQ } from "../../lib/gsap";
 import { SplitWords } from "../fx/Split";
-import { contactItems, experiences, profile, stats } from "../../data/portfolio";
+import { contactItems, experiences, images, profile, stats } from "../../data/portfolio";
 
 /**
  * Scene 2 — About.
@@ -23,6 +23,41 @@ const About: React.FC = () => {
             xPercent: -35,
             ease: "none",
             scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+
+        // Portrait: frame opens, letterbox bars retract, slow push-in, light sweep
+        gsap.fromTo(
+          ".about-mask",
+          { clipPath: "inset(14% 10% 14% 10% round 24px)" },
+          {
+            clipPath: "inset(0% 0% 0% 0% round 24px)",
+            ease: "none",
+            scrollTrigger: { trigger: ".about-frame", start: "top 95%", end: "top 35%", scrub: true },
+          },
+        );
+        gsap.to(".about-bar-t, .about-bar-b", {
+          scaleY: 0,
+          ease: "none",
+          scrollTrigger: { trigger: ".about-frame", start: "top 80%", end: "top 30%", scrub: true },
+        });
+        gsap.fromTo(
+          ".about-img",
+          { scale: 1.25, yPercent: -4 },
+          {
+            scale: 1.02,
+            yPercent: 4,
+            ease: "none",
+            scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+        gsap.fromTo(
+          ".about-sweep",
+          { xPercent: -150 },
+          {
+            xPercent: 400,
+            ease: "none",
+            scrollTrigger: { trigger: ".about-frame", start: "top 70%", end: "top 10%", scrub: true },
           },
         );
 
@@ -75,7 +110,7 @@ const About: React.FC = () => {
       ref={root}
       data-bg="#0b0b10"
       aria-labelledby="about-title"
-      // overflow-x-clip (not overflow-hidden) so the avatar frame can stay sticky
+      // overflow-x-clip (not overflow-hidden) so the portrait frame can stay sticky
       className="relative overflow-x-clip py-28 md:py-40"
     >
       <div
@@ -89,25 +124,33 @@ const About: React.FC = () => {
         {/* Portrait column */}
         <div className="lg:col-span-5">
           <figure className="about-frame mx-auto max-w-[420px] lg:sticky lg:top-28 lg:max-w-none">
-            {/* The 3D avatar (AvatarJourney) lands in this frame and works at a laptop. */}
-            <div
-              data-avatar-dock
-              className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/[0.08] bg-[radial-gradient(90%_70%_at_50%_75%,rgba(79,140,255,0.16),transparent_70%),linear-gradient(180deg,#0e1220,#07070a)]"
-            >
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-60"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-                  backgroundSize: "40px 40px",
-                  maskImage: "linear-gradient(180deg, transparent 0%, black 55%, black 100%)",
-                  WebkitMaskImage: "linear-gradient(180deg, transparent 0%, black 55%, black 100%)",
-                }}
+            {/* Cinematic portrait — the supplied suit photo, used as-is (no retouching). */}
+            <div className="about-mask grain relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-900 shadow-[0_40px_120px_-40px_rgba(79,140,255,0.45)]">
+              <img
+                src={images.professionalPortrait}
+                alt="Laxman Arukala in a navy business suit"
+                width={746}
+                height={1120}
+                loading="lazy"
+                decoding="async"
+                className="about-img absolute inset-0 h-full w-full object-cover object-[50%_22%]"
               />
-              <p className="absolute left-5 top-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/50">
+              {/* Light: blue key from the left, violet rim from the right */}
+              <div aria-hidden="true" className="pointer-events-none absolute -left-1/4 top-0 h-full w-2/3 bg-[radial-gradient(closest-side,rgba(79,140,255,0.35),transparent)] mix-blend-screen" />
+              <div aria-hidden="true" className="pointer-events-none absolute -right-1/4 top-1/4 h-2/3 w-2/3 bg-[radial-gradient(closest-side,rgba(139,123,255,0.3),transparent)] mix-blend-screen" />
+              {/* Light sweep that crosses the frame on scroll */}
+              <div aria-hidden="true" className="about-sweep pointer-events-none absolute -inset-y-1/4 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent mix-blend-overlay" />
+              {/* Cool cinematic grade over the background (soft-light keeps skin tones natural) */}
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1b3a8a]/70 via-transparent to-[#3b2a8a]/60 mix-blend-soft-light" />
+              {/* Vignette + floor fade */}
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_70%_at_50%_38%,transparent_30%,rgba(7,7,10,0.55)_70%,rgba(7,7,10,0.92)_100%)]" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
+              {/* Letterbox bars that open as the frame arrives */}
+              <div aria-hidden="true" className="about-bar-t pointer-events-none absolute inset-x-0 top-0 h-[12%] origin-top bg-ink-950" />
+              <div aria-hidden="true" className="about-bar-b pointer-events-none absolute inset-x-0 bottom-0 h-[12%] origin-bottom bg-ink-950" />
+              <p className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-                Live · at work
+                Scene 02 · Profile
               </p>
             </div>
             <figcaption className="mt-5 flex items-end justify-between">

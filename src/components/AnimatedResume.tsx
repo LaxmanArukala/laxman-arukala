@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { MotionConfig } from "framer-motion";
 import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
@@ -11,9 +11,6 @@ import Experience from "./sections/Experience";
 import Projects from "./sections/Projects";
 import Capabilities from "./sections/Capabilities";
 import Contact from "./sections/Contact";
-
-// 3D avatar that walks across the hero and settles into the About frame.
-const AvatarJourney = lazy(() => import("./three/AvatarJourney"));
 
 /**
  * The portfolio, told as seven scenes:
@@ -67,9 +64,6 @@ const AnimatedResume: React.FC = () => {
         </main>
         <Footer />
       </div>
-      <Suspense fallback={null}>
-        <AvatarJourney />
-      </Suspense>
     </MotionConfig>
   );
 };

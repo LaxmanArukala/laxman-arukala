@@ -197,9 +197,8 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* On desktop the name sits left so the 3D avatar has the right side */}
-      <div className="hero-stage absolute inset-0 z-10 flex items-center justify-center px-4 pb-16 pt-36 sm:px-6 md:pt-40 lg:justify-start lg:pl-[5vw]">
-        <div className="hero-frame relative flex h-full max-h-[640px] w-full max-w-[1180px] flex-col items-center justify-center px-4 py-10 sm:px-10 md:w-[78vw] lg:w-[58vw]">
+      <div className="hero-stage absolute inset-0 z-10 flex items-center justify-center px-4 pb-16 pt-36 sm:px-6 md:pt-40">
+        <div className="hero-frame relative flex h-full max-h-[640px] w-full max-w-[1180px] flex-col items-center justify-center px-4 py-10 sm:px-10 md:w-[78vw]">
           <h1 className="hero-name text-center font-serif font-black uppercase leading-[0.86] tracking-[-0.01em] text-white">
             <span className="sr-only">
               {profile.firstName} {profile.lastName} — {profile.role}
