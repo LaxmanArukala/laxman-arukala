@@ -124,6 +124,8 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "Node.js", level: 70 },
       { name: "Express.js", level: 70 },
+      { name: "Python" },
+      { name: "FastAPI" },
       { name: "REST APIs" },
       { name: "Microservices Architecture" },
     ],

@@ -16,7 +16,7 @@ const layers = [
     icon: Server,
     layer: "Services",
     title: "Backend APIs",
-    stack: ["Node.js", "Express.js", "REST APIs", "Microservices"],
+    stack: ["Node.js", "Express.js", "Python", "FastAPI", "REST APIs", "Microservices"],
   },
   {
     icon: Database,
