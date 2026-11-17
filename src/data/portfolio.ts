@@ -54,7 +54,7 @@ export const profile = {
   focus: "Fast, accessible, scalable UIs",
   aboutHeadline: "7+ years turning designs into fast, accessible interfaces.",
   about:
-    "I build production React and Node.js applications that hold up under real users — from enterprise healthcare platforms to AI-powered prototyping tools. Seven years across four companies taught me that clean architecture and fast, accessible interfaces aren't nice-to-haves — they're the job.",
+    "I build production-grade React and Node.js applications, from enterprise healthcare platforms to AI-powered tools. I focus on clean architecture, performance and accessibility. Currently, I’m expanding into Python, FastAPI, Generative AI and Agentic AI to build intelligent, AI-driven products.",
   footerBlurb:
     "Full stack developer building fast, accessible web products — from UI/UX and frontend to backend, DevOps, and hosting.",
 };
