@@ -1,241 +1,88 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { gsap, MQ } from "../../lib/gsap";
-import { SplitWords } from "../fx/Split";
+import React from "react";
 import { contactItems, experiences, images, profile, stats } from "../../data/portfolio";
 
-/**
- * Scene 2 — About.
- * Sticky portrait on the left; the story on the right lights up word by word
- * as it scrolls through the viewport.
- */
-const About: React.FC = () => {
-  const root = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-      mm.add(MQ.motion, () => {
-        // Ghost word drifts across the background
-        gsap.fromTo(
-          ".about-ghost",
-          { xPercent: 10 },
-          {
-            xPercent: -35,
-            ease: "none",
-            scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
-          },
-        );
-
-        // Portrait: frame opens, letterbox bars retract, slow push-in, light sweep
-        gsap.fromTo(
-          ".about-mask",
-          { clipPath: "inset(14% 10% 14% 10% round 24px)" },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 24px)",
-            ease: "none",
-            scrollTrigger: { trigger: ".about-frame", start: "top 95%", end: "top 35%", scrub: true },
-          },
-        );
-        gsap.to(".about-bar-t, .about-bar-b", {
-          scaleY: 0,
-          ease: "none",
-          scrollTrigger: { trigger: ".about-frame", start: "top 80%", end: "top 30%", scrub: true },
-        });
-        gsap.fromTo(
-          ".about-img",
-          { scale: 1.25, yPercent: -4 },
-          {
-            scale: 1.02,
-            yPercent: 4,
-            ease: "none",
-            scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true },
-          },
-        );
-        gsap.fromTo(
-          ".about-sweep",
-          { xPercent: -150 },
-          {
-            xPercent: 400,
-            ease: "none",
-            scrollTrigger: { trigger: ".about-frame", start: "top 70%", end: "top 10%", scrub: true },
-          },
-        );
-
-        // Headline rises in
-        gsap.from(".about-head .split-word", {
-          yPercent: 110,
-          duration: 1.1,
-          stagger: 0.05,
-          ease: "expo.out",
-          scrollTrigger: { trigger: ".about-head", start: "top 85%" },
-        });
-
-        // Story paragraph — scrubbed word reveal
-        gsap.fromTo(
-          ".about-story .split-word",
-          { opacity: 0.14 },
-          {
-            opacity: 1,
-            stagger: 0.1,
-            ease: "none",
-            scrollTrigger: { trigger: ".about-story", start: "top 80%", end: "bottom 45%", scrub: true },
-          },
-        );
-
-        gsap.from(".about-reveal", {
-          y: 40,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: { trigger: ".about-reveal", start: "top 88%" },
-        });
-
-        gsap.from(".about-stat", {
-          y: 30,
-          opacity: 0,
-          duration: 0.9,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: { trigger: ".about-stats", start: "top 85%" },
-        });
-      });
-    }, root);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section
-      id="about"
-      ref={root}
-      data-bg="#0b0b10"
-      aria-labelledby="about-title"
-      // overflow-x-clip (not overflow-hidden) so the portrait frame can stay sticky
-      className="relative overflow-x-clip py-28 md:py-40"
-    >
-      <div
-        aria-hidden="true"
-        className="about-ghost text-outline pointer-events-none absolute left-0 top-10 select-none whitespace-nowrap font-display text-[26vw] font-semibold leading-none tracking-tightest"
-      >
-        About — About
+const About: React.FC = () => (
+  <section id="about" aria-labelledby="about-title" className="tone-cream py-20 md:py-28">
+    <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-6 md:px-10 lg:grid-cols-12 lg:gap-16">
+      <div className="lg:col-span-5">
+        <figure className="mx-auto max-w-[420px] lg:sticky lg:top-24 lg:max-w-none">
+          <img
+            src={images.professionalPortrait}
+            alt="Laxman Arukala in a navy business suit"
+            width={746}
+            height={1120}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/5] w-full rounded-2xl object-cover object-[50%_22%]"
+          />
+          <figcaption className="mt-4 flex items-end justify-between">
+            <div>
+              <p className="font-display text-xl font-semibold">
+                {profile.firstName} {profile.lastName}
+              </p>
+              <p className="text-sm text-fg/80">{profile.location}</p>
+            </div>
+            <p className="text-right font-display text-sm text-fg/80">
+              {profile.experience}
+              <br />
+              experience
+            </p>
+          </figcaption>
+        </figure>
       </div>
 
-      <div className="relative mx-auto grid max-w-[1440px] gap-14 px-4 sm:px-6 md:px-10 lg:grid-cols-12 lg:gap-16">
-        {/* Portrait column */}
-        <div className="lg:col-span-5">
-          <figure className="about-frame mx-auto max-w-[420px] lg:sticky lg:top-28 lg:max-w-none">
-            {/* Cinematic portrait — the supplied suit photo, used as-is (no retouching). */}
-            <div className="about-mask grain relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-900 shadow-[0_40px_120px_-40px_rgba(79,140,255,0.45)]">
-              <img
-                src={images.professionalPortrait}
-                alt="Laxman Arukala in a navy business suit"
-                width={746}
-                height={1120}
-                loading="lazy"
-                decoding="async"
-                className="about-img absolute inset-0 h-full w-full object-cover object-[50%_22%]"
-              />
-              {/* Light: blue key from the left, violet rim from the right */}
-              <div aria-hidden="true" className="pointer-events-none absolute -left-1/4 top-0 h-full w-2/3 bg-[radial-gradient(closest-side,rgba(79,140,255,0.35),transparent)] mix-blend-screen" />
-              <div aria-hidden="true" className="pointer-events-none absolute -right-1/4 top-1/4 h-2/3 w-2/3 bg-[radial-gradient(closest-side,rgba(139,123,255,0.3),transparent)] mix-blend-screen" />
-              {/* Light sweep that crosses the frame on scroll */}
-              <div aria-hidden="true" className="about-sweep pointer-events-none absolute -inset-y-1/4 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent mix-blend-overlay" />
-              {/* Cool cinematic grade over the background (soft-light keeps skin tones natural) */}
-              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1b3a8a]/70 via-transparent to-[#3b2a8a]/60 mix-blend-soft-light" />
-              {/* Vignette + floor fade */}
-              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_70%_at_50%_38%,transparent_30%,rgba(7,7,10,0.55)_70%,rgba(7,7,10,0.92)_100%)]" />
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
-              {/* Letterbox bars that open as the frame arrives */}
-              <div aria-hidden="true" className="about-bar-t pointer-events-none absolute inset-x-0 top-0 h-[12%] origin-top bg-ink-950" />
-              <div aria-hidden="true" className="about-bar-b pointer-events-none absolute inset-x-0 bottom-0 h-[12%] origin-bottom bg-ink-950" />
-              <p className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-                Scene 02 · Profile
-              </p>
-            </div>
-            <figcaption className="mt-5 flex items-end justify-between">
-              <div>
-                <p className="font-display text-xl font-semibold">
-                  {profile.firstName} {profile.lastName}
-                </p>
-                <p className="text-sm text-white/60">{profile.location}</p>
-              </div>
-              <p className="text-right font-display text-sm text-white/60">
-                {profile.experience}
-                <br />
-                experience
-              </p>
-            </figcaption>
-          </figure>
-        </div>
+      <div className="lg:col-span-7">
+        <p className="eyebrow">About me</p>
+        <h2 id="about-title" className="display mt-6 text-[clamp(2.3rem,5vw,4.5rem)]">
+          {profile.aboutHeadline}
+        </h2>
+        <p className="mt-8 font-display text-[clamp(1.2rem,1.8vw,1.6rem)] font-medium leading-[1.4]">{profile.about}</p>
 
-        {/* Story column */}
-        <div className="lg:col-span-7 lg:pt-10">
-          <p className="eyebrow flex items-center gap-3">
-            <span className="text-accent">02</span>
-            <span className="h-px w-8 bg-white/20" />
-            About me
-          </p>
-
-          <h2
-            id="about-title"
-            className="about-head display mt-8 text-[clamp(2.4rem,6vw,5.5rem)] text-white"
-          >
-            <SplitWords text={profile.aboutHeadline} masked />
-          </h2>
-
-          <p className="about-story mt-12 font-display text-[clamp(1.35rem,2.3vw,2.2rem)] font-medium leading-[1.3] tracking-tight text-white">
-            <SplitWords text={profile.about} />
-          </p>
-
-          <div className="about-reveal mt-14 grid gap-10 border-t border-white/[0.08] pt-10 sm:grid-cols-2">
-            <div>
-              <p className="eyebrow">Roles</p>
-              <ul className="mt-4 space-y-2">
-                {profile.roles.map((r) => (
-                  <li key={r} className="font-display text-lg text-white/85">
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="eyebrow">Focus</p>
-              <p className="mt-4 font-display text-lg text-white/85">{profile.focus}</p>
-              <p className="eyebrow mt-8">Companies</p>
-              <p className="mt-4 text-white/70">
-                {experiences.map((e) => e.shortName).join(" · ")}
-              </p>
-            </div>
+        <div className="mt-10 grid gap-8 border-t border-fg/25 pt-8 sm:grid-cols-2">
+          <div>
+            <p className="eyebrow">Roles</p>
+            <ul className="mt-3 space-y-1.5">
+              {profile.roles.map((r) => (
+                <li key={r} className="font-display text-lg">
+                  {r}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <dl className="about-stats mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] sm:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label} className="about-stat flex flex-col-reverse justify-end bg-[var(--bg)] p-6">
-                <dt className="mt-3 text-xs uppercase tracking-[0.2em] text-white/45">{s.label}</dt>
-                <dd className="display text-5xl text-white">{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <ul className="about-reveal mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/60">
-            {contactItems.map((item) => (
-              <li key={item.label} className="flex items-center gap-2">
-                <item.icon size={15} className="text-accent" aria-hidden="true" />
-                {item.href ? (
-                  <a href={item.href} className="transition-colors hover:text-white">
-                    {item.value}
-                  </a>
-                ) : (
-                  item.value
-                )}
-              </li>
-            ))}
-          </ul>
+          <div>
+            <p className="eyebrow">Focus</p>
+            <p className="mt-3 font-display text-lg">{profile.focus}</p>
+            <p className="eyebrow mt-6">Companies</p>
+            <p className="mt-3">{experiences.map((e) => e.shortName).join(" · ")}</p>
+          </div>
         </div>
+
+        <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-fg/25 bg-fg/25 sm:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col-reverse justify-end bg-surface p-5">
+              <dt className="mt-2 text-xs uppercase tracking-[0.15em] text-fg/80">{s.label}</dt>
+              <dd className="display text-4xl">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm">
+          {contactItems.map((item) => (
+            <li key={item.label} className="flex items-center gap-2">
+              <item.icon size={15} aria-hidden="true" />
+              {item.href ? (
+                <a href={item.href} className="hover:underline">
+                  {item.value}
+                </a>
+              ) : (
+                item.value
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;

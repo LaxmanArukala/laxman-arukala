@@ -51,8 +51,8 @@ export const profile = {
   ],
   location: "Hyderabad, India",
   experience: "7+ years",
-  focus: "Fast, accessible, scalable UIs",
-  aboutHeadline: "7+ years turning designs into fast, accessible interfaces.",
+  focus: "Building applications with AI workflows",
+  aboutHeadline: "From complex ideas to products people love to use.",
   about:
     "I build production-grade React and Node.js applications, from enterprise healthcare platforms to AI-powered tools. I focus on clean architecture, performance and accessibility. Currently, I’m expanding into Python, FastAPI, Generative AI and Agentic AI to build intelligent, AI-driven products.",
   footerBlurb:
@@ -63,6 +63,7 @@ export const contact = {
   email: "laxmanarukala@yahoo.com",
   phone: "+91 888688 8762",
   phoneHref: "tel:+918886888762",
+  whatsappHref: `https://wa.me/918886888762?text=${encodeURIComponent("Hi Laxman, I saw your portfolio and would like to connect.")}`,
   location: "Hyderabad, India",
   // Add profile URLs here to show them in the contact scene and footer.
   linkedin: "",
@@ -84,6 +85,8 @@ export interface Skill {
   name: string;
   /** Self-rated proficiency from the original portfolio, where one exists. */
   level?: number;
+  /** Short label shown beside the percentage, e.g. "Beginner". */
+  note?: string;
 }
 
 export interface SkillGroup {
@@ -102,7 +105,7 @@ export const skillGroups: SkillGroup[] = [
     icon: Layout,
     skills: [
       { name: "React JS", level: 90 },
-      { name: "Next.js" },
+      { name: "Next.js", level: 80 },
       { name: "JavaScript", level: 82 },
       { name: "TypeScript", level: 50 },
       { name: "Redux/ Redux Toolkit", level: 80 },
@@ -124,10 +127,10 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "Node.js", level: 70 },
       { name: "Express.js", level: 70 },
-      { name: "Python" },
-      { name: "FastAPI" },
-      { name: "REST APIs" },
-      { name: "Microservices Architecture" },
+      { name: "Python", level: 30, note: "Beginner" },
+      { name: "FastAPI", level: 30, note: "Beginner" },
+      { name: "REST APIs", level: 70 },
+      { name: "Microservices Architecture", level: 50 },
     ],
   },
   {
@@ -135,7 +138,7 @@ export const skillGroups: SkillGroup[] = [
     name: "Database",
     summary: "Relational and document data models behind every feature.",
     icon: Database,
-    skills: [{ name: "PostgreSQL" }, { name: "MongoDB" }, { name: "Dynamo DB" }],
+    skills: [{ name: "PostgreSQL", level: 50 }, { name: "MongoDB", level: 50 }, { name: "Dynamo DB", level: 50 }],
   },
   {
     id: "cloud",
@@ -143,11 +146,10 @@ export const skillGroups: SkillGroup[] = [
     summary: "Containerised, automated delivery from commit to production.",
     icon: Cloud,
     skills: [
-      { name: "Microsoft Azure" },
-      { name: "AWS" },
-      { name: "Docker" },
-      { name: "Kubernetes" },
-      { name: "CI/CD" },
+      { name: "Microsoft Azure", level: 70 },
+      { name: "AWS", level: 70 },
+      { name: "Docker", level: 70 },
+      { name: "CI/CD", level: 70 },
     ],
   },
   {
@@ -340,6 +342,8 @@ export interface Project {
   description: string;
   technologies: string[];
   githubUrl?: string;
+  /** Public website of the product. */
+  liveUrl?: string;
   /** Screenshot or artwork from src/assets, when one exists. */
   image?: string;
   /** "cover" for screenshots, "contain" for logos. */
@@ -359,47 +363,44 @@ export const projects: Project[] = [
   {
     title: "Healthcare Management Platform",
     description:
-      "A healthcare-focused web platform built to simplify clinical workflows and centralize data management. Delivered responsive, accessible UI components, integrated secure REST APIs, and architected a scalable frontend foundation for long-term maintainability.",
+      "A healthcare-focused web platform and React Native mobile app built to simplify clinical workflows and centralize data management. Delivered responsive, accessible UI components, a consistent, high-performance experience across iOS and Android, secure authentication with REST APIs, and a scalable frontend foundation for long-term maintainability.",
     technologies: [
       "React",
+      "React Native",
       "Redux/Redux Toolkit",
+      "Zustand",
       "TypeScript",
       "JavaScript",
       "Tanstack Query",
       "Material UI",
       "REST APIs",
+      "Okta Auth0",
+      "Expo Go",
       "Webpack",
       "HTML/HTML5",
       "CSS/CSS3",
       "Reactive Forms",
       "Accessibility",
       "Jest",
+      "React Micro Frontend / Module Federation",
+      "Reusable / Shared Libraries",
+      "RBAC",
+      "Loqate Validation",
+      "OCR Document Processing",
+      "Azure Blob Storage",
+      "CI/CD Pipeline",
+      "SonarQube",
+      "Veracode",
+      "Jira",
+      "Confluence",
+      "Figma",
+      "Claude",
+      "GitHub Copilot",
     ],
     githubUrl: "",
-    domain: "Healthcare",
+    domain: "Healthcare · Web & Mobile",
     accent: "#4f8cff",
     preview: "dashboard",
-  },
-  {
-    title: "Cross-Platform Mobile Application",
-    description:
-      "A React Native mobile app engineered for a consistent, high-performance experience across iOS and Android. Built reusable components, optimized rendering performance, and integrated secure authentication with REST APIs.",
-    technologies: [
-      "React Native",
-      "TypeScript",
-      "JavaScript",
-      "Zustand",
-      "REST APIs",
-      "Expo Go",
-      "Okta Auth0",
-      "Material UI",
-      "CSS3",
-      "Jest",
-    ],
-    githubUrl: "",
-    domain: "Mobile · iOS & Android",
-    accent: "#8b7bff",
-    preview: "app",
   },
   {
     title: "AI Feature Prototyping (POC)",
@@ -420,6 +421,14 @@ export const projects: Project[] = [
       "HTML/HTML5",
       "CSS/CSS3",
       "Jest",
+      "Azure",
+      "CI/CD Pipeline",
+      "SonarQube",
+      "Veracode",
+      "Jira",
+      "Confluence",
+      "Figma",
+      "GitHub Copilot",
     ],
     githubUrl: "",
     image: aiImg,
@@ -448,6 +457,14 @@ export const projects: Project[] = [
       "PostgreSQL",
       "HTML/HTML5",
       "CSS/CSS3",
+      "Azure",
+      "CI/CD Pipeline",
+      "SonarQube",
+      "Veracode",
+      "Jira",
+      "Confluence",
+      "Figma",
+      "GitHub Copilot",
     ],
     githubUrl: "",
     domain: "Quality & Compliance",
@@ -470,6 +487,15 @@ export const projects: Project[] = [
       "Dynamo DB",
       "HTML/HTML5",
       "CSS/CSS3",
+      "Three.js",
+      "ARCore",
+      "WebXR",
+      "A-Frame",
+      "AWS Polly",
+      "Bitbucket",
+      "SonarQube",
+      "Jira",
+      "Confluence",
     ],
     githubUrl: "",
     image: arGalleryImg,
@@ -494,12 +520,26 @@ export const projects: Project[] = [
       "Dynamo DB",
       "HTML/HTML5",
       "CSS/CSS3",
+      "Bitbucket",
+      "SonarQube",
+      "Jira",
+      "Confluence",
     ],
     githubUrl: "",
     image: enviteCardsImg,
     imageFit: "contain",
     domain: "Events & RSVP",
     accent: "#f472b6",
+    preview: "browser",
+  },
+  {
+    title: "Xappie",
+    description:
+      "An entertainment portal for Indians and NRIs covering Hindi, Telugu, Tamil, Malayalam and Kannada cinema. It brings together pay-per-view movie streaming, a Fans Arena community, reviews, box office and celebrity news, trailers, and city-based events, jobs and listings.",
+    technologies: ["JavaScript", "jQuery", "Bootstrap", "HTML5", "CSS3", "Ajax", "SEO", "SMM", "AMP", "Confluence", "GitHub", "GitHub Desktop"],
+    githubUrl: "",
+    domain: "Entertainment & Streaming",
+    accent: "#fb923c",
     preview: "browser",
   },
 ];

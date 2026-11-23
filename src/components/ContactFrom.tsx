@@ -1,7 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import emailjs from "emailjs-com";
-import { ArrowUpRight } from 'lucide-react';
+
+// Set to true to show the contact form again.
+const FORM_ENABLED: boolean = false;
 
 const contactSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -18,7 +20,7 @@ interface ContactValues {
 }
 
 const fieldClass =
-  "peer mt-2 block w-full border-0 border-b border-white/15 bg-transparent px-0 py-3 text-lg text-white placeholder-white/25 transition-colors focus:border-accent focus:outline-none focus:ring-0";
+  "mt-2 block w-full border-0 border-b border-fg/50 bg-transparent px-0 py-2.5 text-fg placeholder-fg/60 focus:border-fg focus:outline-none focus:ring-0";
 
 export default function ContactFrom() {
   const handleFormSubmit = (
@@ -50,6 +52,18 @@ export default function ContactFrom() {
       .finally(() => setSubmitting(false));
   };
 
+  if (!FORM_ENABLED) {
+    return (
+      <div role="status">
+        <p className="font-display text-lg font-semibold">Contact form temporarily unavailable</p>
+        <p className="mt-1 text-sm leading-relaxed">
+          Our form service is currently down. Let&apos;s talk on email, mobile or WhatsApp, and I&apos;ll get
+          back to you as soon as possible.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
@@ -62,19 +76,19 @@ export default function ContactFrom() {
             <div>
               <label htmlFor="name" className="eyebrow">Name</label>
               <Field id="name" type="text" name="name" autoComplete="name" placeholder="Your name" className={fieldClass} />
-              <ErrorMessage name="name" component="div" className="mt-2 text-sm text-red-400" />
+              <ErrorMessage name="name" component="div" className="mt-2 text-sm font-medium text-fg" />
             </div>
             <div>
               <label htmlFor="email" className="eyebrow">Email</label>
               <Field id="email" type="email" name="email" autoComplete="email" placeholder="you@company.com" className={fieldClass} />
-              <ErrorMessage name="email" component="div" className="mt-2 text-sm text-red-400" />
+              <ErrorMessage name="email" component="div" className="mt-2 text-sm font-medium text-fg" />
             </div>
           </div>
 
           <div>
             <label htmlFor="subject" className="eyebrow">Subject</label>
             <Field id="subject" type="text" name="subject" placeholder="What are we building?" className={fieldClass} />
-            <ErrorMessage name="subject" component="div" className="mt-2 text-sm text-red-400" />
+            <ErrorMessage name="subject" component="div" className="mt-2 text-sm font-medium text-fg" />
           </div>
 
           <div>
@@ -87,16 +101,15 @@ export default function ContactFrom() {
               placeholder="Tell me about the project"
               className={`${fieldClass} resize-none`}
             />
-            <ErrorMessage name="message" component="div" className="mt-2 text-sm text-red-400" />
+            <ErrorMessage name="message" component="div" className="mt-2 text-sm font-medium text-fg" />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white transition-colors hover:border-accent hover:bg-accent disabled:opacity-50"
+            className="rounded-full bg-fg px-7 py-3 text-sm font-medium text-surface hover:bg-fg/85 disabled:opacity-50"
           >
             {isSubmitting ? "Sending…" : "Send Message"}
-            <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </button>
         </Form>
       )}

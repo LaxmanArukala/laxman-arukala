@@ -2,126 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --bg: #07070a;
-    color-scheme: dark;
-  }
+/* Two colours only: cream (247 242 232) and deep green (31 77 69). */
+:root,
+.tone-cream {
+  --surface: 247 242 232;
+  --fg: 31 77 69;
+}
 
+.tone-green {
+  --surface: 31 77 69;
+  --fg: 247 242 232;
+}
+
+.tone-cream,
+.tone-green {
+  background-color: rgb(var(--surface));
+  color: rgb(var(--fg));
+}
+
+@layer base {
   html {
-    background: var(--bg);
+    background: rgb(247 242 232);
+    scroll-padding-top: 60px;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply font-sans text-white antialiased;
-    background: var(--bg);
-    overflow-x: hidden;
+    @apply bg-surface font-sans text-fg antialiased;
   }
 
   ::selection {
-    background: rgba(79, 140, 255, 0.35);
-    color: #fff;
+    background: rgb(var(--fg));
+    color: rgb(var(--surface));
   }
 
   :focus-visible {
-    outline: 2px solid #4f8cff;
+    outline: 2px solid currentColor;
     outline-offset: 3px;
-    border-radius: 4px;
   }
-}
 
-/* Lenis smooth-scroll base rules */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
 }
 
 @layer components {
   .eyebrow {
-    @apply font-display text-[11px] font-medium uppercase tracking-[0.32em] text-white/50;
+    @apply font-display text-[11px] font-medium uppercase tracking-[0.3em] text-fg/70;
   }
+
   .display {
-    @apply font-display font-semibold leading-[0.9] tracking-tightest;
-  }
-  .hairline {
-    @apply border-white/[0.08];
-  }
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.18);
-  }
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.06;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Kept from the previous design for any component that still uses them */
-  .glass-light {
-    @apply bg-white/70 backdrop-blur-xl border border-white/60 shadow-xl shadow-indigo-100/50;
-  }
-  .glass-dark {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
-  }
-}
-
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes scroll-cue {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(200%);
-  }
-}
-
-@layer utilities {
-  .animate-marquee-left {
-    animation: marquee-left 40s linear infinite;
-  }
-  .animate-marquee-right {
-    animation: marquee-right 40s linear infinite;
-  }
-  .animate-scroll-cue {
-    animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee-left,
-  .animate-marquee-right,
-  .animate-scroll-cue {
-    animation: none;
+    @apply font-display font-semibold leading-[0.95] tracking-tightest;
   }
 }
