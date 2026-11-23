@@ -56,7 +56,7 @@ export const profile = {
   about:
     "I build production-grade React and Node.js applications, from enterprise healthcare platforms to AI-powered tools. I focus on clean architecture, performance and accessibility. Currently, I’m expanding into Python, FastAPI, Generative AI and Agentic AI to build intelligent, AI-driven products.",
   footerBlurb:
-    "Full stack developer building fast, accessible web products — from UI/UX and frontend to backend, DevOps, and hosting.",
+    "Senior Full Stack Developer with 7+ years of experience building production-grade React, TypeScript and Node.js applications, from enterprise healthcare platforms to AI-powered tools using Python, FastAPI and AI workflows.",
 };
 
 export const contact = {
